@@ -663,8 +663,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   //uses switch to select card and perform actions
   switch( card ) 
     {
-    case adventurer:
+    case adventurer: ;
+      int adventurerReturn = adventurerFunc(state, z, cardDrawn, drawntreasure, currentPlayer, temphand);
+      return adventurerReturn;
+      break;
     
+      /*Original adventurer code will replace when done
       while(drawntreasure<2){
 	      if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	      shuffle(currentPlayer, state);
@@ -688,6 +692,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	      z=z-1;
       }
       return 0;
+      */
 			
     case council_room:
       //+4 Cards
@@ -1179,13 +1184,19 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       discardCard(handPos, currentPlayer, state, 1);		
       return 0;
 		
-    case outpost:
+    case outpost: ;
+      int outpostReturn = outpostFunc(state, handPos, currentPlayer);
+      return outpostReturn;
+      break;
+      
+      /*Original outpost code in case I need it again
       //set outpost flag
       state->outpostPlayed++;
 			
       //discard card
       discardCard(handPos, currentPlayer, state, 0);
       return 0;
+		  */
 		
     case salvager:
       //+1 buy
@@ -1252,8 +1263,10 @@ I have also introduced the following bugs into the code, written after the colon
 -Smithy: Draw 4 cards instead of 3
 -Village: Draw 2 cards instead of 1, as in the case of an accidental extra copypaste of a function call that happens sometimes...
 -Minion: flip flopped choice 1 and choice 2 branches so their functions should be reversed of what they say they should do!
--
--
+-Adventurer: Removed "-1" after "cardDrawn = state->hand[currentPlayer][state->handcount[currentPlayer]-1]" and added "-2"
+so that the top card is no longer checked and instead the second to top card is checked for the next statement.
+!!!!The adventurer BUG that I introduced will cause a segmentation fault if the hand doesn't have 2 cards in it!!!
+-outpost: No bugs added as it was the fifth card I refactored
 
 Using this template to pass:
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus){
@@ -1339,6 +1352,46 @@ int minionFunc(int choice1, int choice2, struct gameState *state, int handPos, i
 	   }
      return 0;
 }
+
+int adventurerFunc(struct gameState *state, int z, int cardDrawn, int drawntreasure, int currentPlayer,int temphand[]){
+      
+      while(drawntreasure<2){
+	      if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
+	      shuffle(currentPlayer, state);
+	    }
+	      
+	    drawCard(currentPlayer, state);                            //BUG!!:changed -1 to -2 here. Should get second to top card
+	    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-2];//top card of hand is most recently drawn card. (now second to top card)
+	      
+	    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
+	        drawntreasure++;
+	    }
+	    else{
+	      temphand[z]=cardDrawn;
+	      state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+	      z++;
+	    }
+	      
+      }
+      while(z-1>=0){
+	      state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+	      z=z-1;
+      }
+      return 0;
+  
+  
+}
+
+int outpostFunc(struct gameState *state, int handPos, int currentPlayer){
+        //set outpost flag
+      state->outpostPlayed++;
+			
+      //discard card
+      discardCard(handPos, currentPlayer, state, 0);
+      return 0;
+  
+}
+
 
 int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag){
 	
