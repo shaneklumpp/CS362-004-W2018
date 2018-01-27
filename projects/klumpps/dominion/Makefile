@@ -29,9 +29,11 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
+	
+unitTest2: unitTest2.c dominion.o rngs.o
+	gcc -o unitTest2 -g  unitTest2.c dominion.o rngs.o $(CFLAGS)
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
