@@ -99,32 +99,29 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed, struct 
 
   //set number of Kingdom cards
   for (i = adventurer; i <= treasure_map; i++)       	//loop all cards
-    {
+  {
       for (j = 0; j < 10; j++)           		//loop chosen cards
-	{
-	  if (kingdomCards[j] == i)
 	    {
-	      //check if card is a 'Victory' Kingdom card
-	      if (kingdomCards[j] == great_hall || kingdomCards[j] == gardens)
-		{
-		  if (numPlayers == 2){ 
-		    state->supplyCount[i] = 8; 
-		  }
-		  else{ state->supplyCount[i] = 12; }
-		}
-	      else
-		{
-		  state->supplyCount[i] = 10;
-		}
-	      break;
-	    }
-	  else    //card is not in the set choosen for the game
-	    {
+	      if (kingdomCards[j] == i){
+	        //check if card is a 'Victory' Kingdom card
+	        if (kingdomCards[j] == great_hall || kingdomCards[j] == gardens){
+		        if (numPlayers == 2){ 
+		          state->supplyCount[i] = 8; 
+		        }
+		        else{ state->supplyCount[i] = 12; }
+		      }
+	        else{
+		        state->supplyCount[i] = 10;
+		      }
+	        break;
+	      }
+	      else    //card is not in the set choosen for the game
+	      {
 	      state->supplyCount[i] = -1;
-	    }
+	      }
 	}
 
-    }
+}
 
   ////////////////////////
   //supply intilization complete
@@ -277,15 +274,18 @@ int buyCard(int supplyPos, struct gameState *state) {
     if (DEBUG)
       printf("You do not have any buys left\n");
     return -1;
-  } else if (supplyCount(supplyPos, state) <1){
+  } 
+  else if (supplyCount(supplyPos, state) <1){
     if (DEBUG)
       printf("There are not any of that type of card left\n");
     return -1;
-  } else if (state->coins < getCost(supplyPos)){
+  } 
+  else if (state->coins < getCost(supplyPos)){
     if (DEBUG) 
       printf("You do not have enough money to buy that. You have %d coins.\n", state->coins);
     return -1;
-  } else {
+  } 
+  else {
     state->phase=1;
     //state->supplyCount[supplyPos]--;
     gainCard(supplyPos, state, 0, who); //card goes in discard, this might be wrong.. (2 means goes into hand, 0 goes into discard)
@@ -562,59 +562,59 @@ int getCost(int cardNumber){
   
   switch( cardNumber ) 
     {
-    case curse:
+    case curse: //enum 0
       return 0;
-    case estate:
+    case estate: //enum 1
       return 2;
-    case duchy:
+    case duchy: //enum 2
       return 5;
-    case province:
+    case province: //enum 3
       return 8;
-    case copper:
+    case copper: //enum 4
       return 0;
-    case silver:
+    case silver: //enum 5
       return 3;
-    case gold:
+    case gold: //enum 6
       return 6;
-    case adventurer:
+    case adventurer: //enum 7
       return 6;
-    case council_room:
+    case council_room: //enum 8
       return 5;
-    case feast:
+    case feast: //enum 9
       return 4;
-    case gardens:
+    case gardens: //enum 10
       return 4;
-    case mine:
+    case mine: //enum 11
       return 5;
-    case remodel:
+    case remodel: //enum 12
       return 4;
-    case smithy:
+    case smithy: //enum 13
       return 4;
-    case village:
+    case village: //enum 14
       return 3;
-    case baron:
+    case baron: //enum 15
       return 4;
-    case great_hall:
+    case great_hall: //enum 16
       return 3;
-    case minion:
+    case minion: //enum 17
       return 5;
-    case steward:
+    case steward: //enum 18
       return 3;
-    case tribute:
+    case tribute: //enum 19
       return 5;
-    case ambassador:
+    case ambassador: //enum 20
       return 3;
-    case cutpurse:
+    case cutpurse: //enum 21
       return 4;
-    case embargo: 
+    case embargo:  //enum 22
       return 2;
-    case outpost:
+    case outpost: //enum 23
       return 5;
-    case salvager:
+    case salvager: //enum 24
       return 4;
-    case sea_hag:
+    case sea_hag: //enum 25
       return 4;
-    case treasure_map:
+    case treasure_map: //enum 26
       return 4;
     }
 	
