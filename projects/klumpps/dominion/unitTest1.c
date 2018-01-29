@@ -41,6 +41,10 @@ int main(){
     
     memcpy(&testG, &G, sizeof(struct gameState)); //copying into test case gamestate testG
     
+    testG.handCount[0] = 0; //set handcount originally to 0
+    testG.discardCount[0] = 0; //set discardCount to 0
+    testG.deckCount[0] = 0; //set deckCount to 0
+    
     //set supply count to 0 for all cards for testing
     for(i = 0; i < 27; i++){
         testG.supplyCount[i] = 0;
@@ -51,6 +55,10 @@ int main(){
         returnValue = gainCard(i, &testG, 0, 0);
         if(returnValue == -1){
             assert(returnValue == -1); //I didn't want to have to print this out 26 times so I put print statement into noisy test
+            assert(testG.handCount[0] == 0); //check hand pile for correct count of the cards added
+            assert(testG.discardCount[0] == 0); //check discardCount is 0
+            assert(testG.deckCount[0] == 0); //check deckCount is 0
+            assert(testG.supplyCount[i] == 0); //check supply count for card. Make sure it is 0
             
             if(returnValue == -1){
                 #if (NOISY_TEST == 1)
@@ -83,6 +91,8 @@ int main(){
         testG.supplyCount[i] = 1;
     }
     testG.handCount[0] = 0; //set handcount originally to 0
+    testG.discardCount[0] = 0; //set discardCount to 0
+    testG.deckCount[0] = 0; //set deckCount to 0
     testG.hand[0][0] = 3; //I put in the hand a random card from a 6 sided dice roll for testing purposes. Shoutout to xkcd
     
     for(i = 0; i < 27; i++){
@@ -100,6 +110,9 @@ int main(){
             printf("FAIL\n");
             totalTestFail++;
         }
+        
+        assert(testG.discardCount[0] == 0); //assert discardCount wasn't changed
+        assert(testG.deckCount[0] == 0); //assert deckCount wasn't changed
         
         assert(testG.handCount[0] == i + 1); //check hand pile for correct count of the cards added
         assert(testG.hand[0][i] == i); //check and pile for card.
@@ -124,6 +137,8 @@ int main(){
         testG.supplyCount[i] = 1;
     }
     
+    testG.handCount[0] = 0; //set handcount originally to 0
+    testG.deckCount[0] = 0; //set deckCount to 0
     testG.discardCount[0] = 0; //set discardcount originally to 0
     testG.discard[0][0] = 3; //I put in the discard a random card from a 6 sided dice roll for testing purposes. Shoutout to xkcd
     
@@ -143,6 +158,8 @@ int main(){
             totalTestFail++;
         }
         
+        assert(testG.handCount[0] == 0); //assert handCount not changed
+        assert(testG.deckCount[0] == 0); //assert deckCount not changed
         assert(testG.discardCount[0] == i + 1); //check hand pile for correct count of the cards added
         assert(testG.discard[0][i] == i); //check to make sure card was placed in the discard pile
         assert(testG.supplyCount[i] == 0); //check supply count for card. Make sure it has decremented to 0
@@ -165,6 +182,8 @@ int main(){
         testG.supplyCount[i] = 1;
     }
     
+    testG.handCount[0] = 0; //set handcount originally to 0
+    testG.discardCount[0] = 0; //set discardcount originally to 0
     testG.deckCount[0] = 0; //set discardcount originally to 0
     testG.deck[0][0] = 3; //I put in the discard a random card from a 6 sided dice roll for testing purposes. Shoutout to xkcd
     
@@ -184,6 +203,8 @@ int main(){
             totalTestFail++;
         }
         
+        assert(testG.handCount[0] == 0); //assert handCount not changed
+        assert(testG.discardCount[0] == 0); //assert discardCount not changed
         assert(testG.deckCount[0] == i + 1); //check hand pile for correct count of the cards added
         assert(testG.deck[0][i] == i); //check to make sure card was placed in the discard pile
         assert(testG.supplyCount[i] == 0); //check supply count for card. Make sure it has decremented to 0
