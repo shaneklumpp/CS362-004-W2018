@@ -15,7 +15,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 int smithyFunc(struct gameState *state, int handPos, int currentPlayer);
 int villageFunc(struct gameState *state, int handPos, int *bonus, int currentPlayer);
 int minionFunc(int choice1, int choice2, struct gameState *state, int handPos, int currentPlayer, int i, int j);
-int adventurerFunc(struct gameState *state, int z, int cardDrawn, int drawntreasure, int currentPlayer, int temphand[]);
+int adventurerFunc(struct gameState *state, int z, int drawntreasure, int currentPlayer, int temphand[]);
 int outpostFunc(struct gameState *state, int handPos, int currentPlayer);
 	       
 

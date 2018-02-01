@@ -119,9 +119,9 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed, struct 
 	      {
 	      state->supplyCount[i] = -1;
 	      }
-	}
+	    }
 
-}
+  }
 
   ////////////////////////
   //supply intilization complete
@@ -645,7 +645,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer: ;
-      int adventurerReturn = adventurerFunc(state, z, cardDrawn, drawntreasure, currentPlayer, temphand);
+      int adventurerReturn = adventurerFunc(state, z, drawntreasure, currentPlayer, temphand);
       return adventurerReturn;
       break;
     
@@ -1334,7 +1334,8 @@ int minionFunc(int choice1, int choice2, struct gameState *state, int handPos, i
      return 0;
 }
 
-int adventurerFunc(struct gameState *state, int z, int cardDrawn, int drawntreasure, int currentPlayer,int temphand[]){
+int adventurerFunc(struct gameState *state, int z, int drawntreasure, int currentPlayer,int temphand[]){
+      int cardDrawn;
       
       while(drawntreasure<2){
 	      if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
