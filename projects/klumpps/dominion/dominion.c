@@ -645,7 +645,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer: ;
-      int adventurerReturn = adventurerFunc(state, z, drawntreasure, currentPlayer, temphand);
+      int adventurerReturn = adventurerFunc(state, z, drawntreasure, currentPlayer, temphand, handPos);
       return adventurerReturn;
       break;
     
@@ -672,6 +672,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	      state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
 	      z=z-1;
       }
+      
+      //put played card in played card pile
+      discardCard(handPos, currentPlayer, state, 0);
+      
       return 0;
       */
 			
@@ -1334,13 +1338,13 @@ int minionFunc(int choice1, int choice2, struct gameState *state, int handPos, i
      return 0;
 }
 
-int adventurerFunc(struct gameState *state, int z, int drawntreasure, int currentPlayer,int temphand[]){
+int adventurerFunc(struct gameState *state, int z, int drawntreasure, int currentPlayer,int temphand[], int handPos){
       int cardDrawn;
       
       while(drawntreasure<2){
 	      if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	      shuffle(currentPlayer, state);
-	    }
+	      }
 	      
 	    drawCard(currentPlayer, state);                            //BUG!!:changed -1 to -2 here. Should get second to top card
 	    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-2];//top card of hand is most recently drawn card. (now second to top card)
@@ -1359,6 +1363,9 @@ int adventurerFunc(struct gameState *state, int z, int drawntreasure, int curren
 	      state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
 	      z=z-1;
       }
+      
+      //discard card is gone that is a bug that I didn't introduce!!!      
+
       return 0;
   
   
