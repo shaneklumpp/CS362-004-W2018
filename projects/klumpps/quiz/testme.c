@@ -5,14 +5,23 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    //I wrote this function for the quiz
+    char c;
+    c = rand() % 128;
+    return c;
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    //I wrote this function for the quiz
+    char *string = (char *) malloc(sizeof(char));
+    int i;
+    for(i = 0; i < 5; i++){
+      string[i] = (rand() % 26 ) + 97; //get chars a-z in ascii
+      
+    }
+    string[5] = '\0'; //newline character so we can get state = 9
+    return string;
 }
 
 void testme()

@@ -1,0 +1,29 @@
+Shane Klumpp
+2/2/2018
+Random Testing Quiz, Quiz # 2
+
+The strategy for the random string was done by looking at the eventual output that I would need to successfully output the error message
+and stop the test itself. This needed to be done using a random test generator so I couldn’t just write in the exact input that
+would stop the test… although that is what I did originally to assure that I knew what would stop program and get the error message to print.
+(This wasn’t included in the final code as I only included the final version).
+
+I first looked at the code itself and tried to discover what would generate the error output. 
+The if statement containing the output checks a string with 6 characters. S[0]-s[4] are alphabetic characters and spell out “reset” so I knew
+I would need a 6 character string with the first 5 characters randomized to go through the 26 lowercase characters. S[5] is the 
+endline character which I just hardcoded to be S[5] as the ascii tables between a-z and the newline character are separated and it seemed silly
+to extend it all the way just so S[5] would have a chance of being the newline character. This would have taken way too much time and
+too many iterations. Therefore, S[0]-S[4] are randomized between ascii values 97-122 and are the random values for inputString in the test
+
+Second, the if statement that produces the error keeps has one further conditional before the error is found.
+Aside from the 6 character string that produces ‘reset\0’ it also checks to make sure that the state = 9. 
+Thankfully, state doesn’t reset along each iteration so that decreased complexity of the random tests needed. 
+Therefore, State just needed to be incremented once from 0 to 9 and then would remain 9 until “reset” string was found producing the error. 
+To increment state from 0 to 9, the char c was checked for certain characters over the entire range of the ASCII table. 
+To check for all characters in the ascii table, I used a rand() by 128 so the entire ASCII range would be covered eventually 
+(I tested this as well by altering the function to stop when state = 9. It took on average ~1500 iterations to get state to 9).
+This was good enough coverage, as all of the ASCII table should have been hit at least once during this which should be okay for random 
+testing purposes.
+
+My test runs and completes itself in about 4 minutes. It gets state to 9 almost instantly (~1500 iterations over 10 tests). 
+It finds a string with 5 random characters of “reset” and a fixed character at the end ‘\0’ in mathematically (1/26)5 = 11,881,376 iterations.
+
