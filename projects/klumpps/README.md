@@ -1,3 +1,3 @@
 Shane Klumpp klumpps
 
-klumpps assignment-2
+klumpps-random-quiz
