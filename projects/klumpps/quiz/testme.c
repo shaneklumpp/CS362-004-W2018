@@ -7,7 +7,7 @@ char inputChar()
 {
     //I wrote this function for the quiz
     char c;
-    c = rand() % 128;
+    c = rand() % 128; //all random ascii characters
     return c;
 }
 
@@ -16,7 +16,7 @@ char *inputString()
     //I wrote this function for the quiz
     char *string = (char *) malloc(sizeof(char));
     int i;
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < 5; i++){ //first random 5 characters to get reset eventually (1/11,881,372 chance)
       string[i] = (rand() % 26 ) + 97; //get chars a-z in ascii
       
     }
