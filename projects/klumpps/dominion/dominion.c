@@ -1342,21 +1342,21 @@ int adventurerFunc(struct gameState *state, int z, int drawntreasure, int curren
       int cardDrawn;
       
       while(drawntreasure<2){
-	      if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
-	      shuffle(currentPlayer, state);
+	        if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
+	        shuffle(currentPlayer, state);
+	        }
+	      
+	      drawCard(currentPlayer, state);                            //BUG!!:changed -1 to -2 here. Should get second to top card
+	      cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-2];//top card of hand is most recently drawn card. (now second to top card)
+	      
+	      if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
+	          drawntreasure++;
 	      }
-	      
-	    drawCard(currentPlayer, state);                            //BUG!!:changed -1 to -2 here. Should get second to top card
-	    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-2];//top card of hand is most recently drawn card. (now second to top card)
-	      
-	    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
-	        drawntreasure++;
-	    }
-	    else{
-	      temphand[z]=cardDrawn;
-	      state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-	      z++;
-	    }
+	      else{
+	        temphand[z]=cardDrawn;
+	        state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+	        z++;
+	      }
 	      
       }
       while(z-1>=0){

@@ -211,6 +211,8 @@ int main(){
     G.deck[0][2] = mine;
     G.deck[0][3] = minion;
     G.deck[0][4] = gold;
+    G.discardCount[0] = 1;
+    G.discard[0][0] = copper;
     
     testG.hand[0][0] = adventurer;
     testG.handCount[0] = 1;
@@ -219,10 +221,13 @@ int main(){
     testG.deck[0][2] = mine;
     testG.deck[0][3] = minion;
     testG.deck[0][4] = gold;
+    testG.discardCount[0] = 1;
+    testG.discard[0][0] = copper;
+    
     
     
     for( i=0; i < numPlayers; i++) {
-#if (NOISY_TEST == 2)
+#if (NOISY_TEST == 1)
         printf("Player %d\n", i);
         printf("Verify starting coins in original state: %d\n", G.coins);
         printf("Verify starting deckCount in original state: %d\n", G.deckCount[i]);
@@ -245,9 +250,9 @@ int main(){
     //play adventurer with deck/hand that we have created for test 8
     cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
     
-#if (NOISY_TEST == 2)
+#if (NOISY_TEST == 1)
     printf("Original deck count %d, espected deck count = %d, actual deck count %d\n", G.deckCount[0], G.deckCount[0] - 4, testG.deckCount[0]);
-    printf("Original discardCount %d, expected discardCount %d, actual discardCount %d\n", G.discardCount[0], G.discardCount[0]+2, testG.discardCount[0]);
+    printf("Original discardCount %d, expected discardCount %d, actual discardCount %d\n", G.discardCount[0] + 1, G.discardCount[0]+2, testG.discardCount[0]);
     printf("Original handCount %d, Expected handCount: %d, Actual hand count %d\n",G.handCount[0], G.handCount[0] + 2 - 1, testG.handCount[0]);
 #endif
     
@@ -260,9 +265,80 @@ int main(){
         bugCount++;
     }
     
+    for(i = 0; i < testG.handCount[0]; i++){
+        printf("Card in position %d, card Name %s\n", i, CARDNames[testG.hand[0][i]]);
+    }
     
     
     
+    printf("\n\nResetting deck of player 0 to contain estate, mine, mine, minion, silver to test a deck tat needs to be reshuffled\n");
+    printf("Deck doesn't currently have enough treasure cards, copper is in discard and needs to be reshuffled into deck\n");
+    printf("Resetting memstate to original\n");    
+    memcpy(&testG, &G, sizeof(struct gameState)); //copying into test case gamestate testG
+    
+    printf("Setting G/testG state handCount to 1 with adventurer. Setting player 0 deck in order to estate, mine, mine, minion, silver\n");
+    printf("Discard pile has a copper in it that is the last drawn treasure card to draw\n");
+    printf("Only player 0 state should have changed. Check NOISY_TEST to confirm if necessary\n");
+    
+    G.hand[0][0] = adventurer;
+    G.handCount[0] = 1;
+    G.deck[0][0] = estate;
+    G.deck[0][1] = mine;
+    G.deck[0][2] = mine;
+    G.deck[0][3] = minion;
+    G.deck[0][4] = silver;
+    G.discardCount[0] = 1;
+    G.discard[0][0] = copper;
+    
+    testG.hand[0][0] = adventurer;
+    testG.handCount[0] = 1;
+    testG.deck[0][0] = estate;
+    testG.deck[0][1] = mine;
+    testG.deck[0][2] = mine;
+    testG.deck[0][3] = minion;
+    testG.deck[0][4] = silver;
+    testG.discardCount[0] = 1;
+    testG.discard[0][0] = copper;
+    
+    
+    
+    for( i=0; i < numPlayers; i++) {
+#if (NOISY_TEST == 2)
+        printf("Player %d\n", i);
+        printf("Verify starting coins in original state: %d\n", G.coins);
+        printf("Verify starting deckCount in original state: %d\n", G.deckCount[i]);
+        printf("Verify starting handCount in original state: %d\n", G.handCount[i]);
+        printf("Verify starting discardCount in original state: %d\n", G.discardCount[i]);
+        printf("Verify starting coins in test state: %d\n", testG.coins);
+        printf("Verify starting deckCount in test state: %d\n", testG.deckCount[i]);
+        printf("Verify starting handCount in test state: %d\n", testG.handCount[i]);
+        printf("Verify starting discardCount in test state: %d\n\n", testG.discardCount[i]);
+#endif
+     }
+     
+    handpos = 0; 
+    
+    printf("Test 9: Deck needs to be reshuffled\n");
+
+    //play adventurer with deck/hand that we have created for test 9
+    cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    
+#if (NOISY_TEST == 2)
+    printf("Original handCount %d, Expected handCount: %d, Actual hand count %d\n",G.handCount[0], G.handCount[0] + 2 - 1, testG.handCount[0]);
+#endif
+    
+    if(G.handCount[0] + 2 - 1 == testG.handCount[0]){
+        printf("Test 9 PASSED: All conditions were met\n");
+        testPassed++;
+    }
+    else{
+        printf("Test 9 FAILED: All conditions were not met check NOISY_TEST for details\n");
+        bugCount++;
+    }
+    //see cards that are in hand
+    for(i = 0; i < testG.handCount[0]; i++){
+        printf("Card in position %d, card Name %s\n", i, CARDNames[testG.hand[0][i]]);
+    }
     
     
     
