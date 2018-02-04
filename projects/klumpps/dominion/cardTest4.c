@@ -19,7 +19,7 @@
 #include <time.h>
 
 // set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 2
+#define NOISY_TEST 0
 
 int main(){
     int i;
@@ -303,7 +303,7 @@ int main(){
     
     
     for( i=0; i < numPlayers; i++) {
-#if (NOISY_TEST == 2)
+#if (NOISY_TEST == 1)
         printf("Player %d\n", i);
         printf("Verify starting coins in original state: %d\n", G.coins);
         printf("Verify starting deckCount in original state: %d\n", G.deckCount[i]);
@@ -323,7 +323,7 @@ int main(){
     //play adventurer with deck/hand that we have created for test 9
     cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
     
-#if (NOISY_TEST == 2)
+#if (NOISY_TEST == 1)
     printf("Original handCount %d, Expected handCount: %d, Actual hand count %d\n",G.handCount[0], G.handCount[0] + 2 - 1, testG.handCount[0]);
 #endif
     
