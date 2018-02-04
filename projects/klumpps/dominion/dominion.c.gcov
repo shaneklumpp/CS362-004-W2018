@@ -2003,19 +2003,19 @@ function updateCoins called 1574 returned 100% blocks executed 100%
 branch  0 taken 83%
 branch  1 taken 17% (fallthrough)
      7870: 1466:      if (state->hand[player][i] == copper){
-branch  0 taken 18% (fallthrough)
-branch  1 taken 82%
-     1394: 1467:	      state->coins += 1;
+branch  0 taken 17% (fallthrough)
+branch  1 taken 83%
+     1371: 1467:	      state->coins += 1;
         -: 1468:	    }
-     6476: 1469:      else if (state->hand[player][i] == silver){
+     6499: 1469:      else if (state->hand[player][i] == silver){
 branch  0 taken 21% (fallthrough)
 branch  1 taken 79%
-     1349: 1470:	      state->coins += 2;
+     1369: 1470:	      state->coins += 2;
         -: 1471:	    }
-     5127: 1472:      else if (state->hand[player][i] == gold){
-branch  0 taken 27% (fallthrough)
-branch  1 taken 73%
-     1359: 1473:	      state->coins += 3;
+     5130: 1472:      else if (state->hand[player][i] == gold){
+branch  0 taken 26% (fallthrough)
+branch  1 taken 74%
+     1334: 1473:	      state->coins += 3;
         -: 1474:	    }	
         -: 1475:  }	
         -: 1476:
