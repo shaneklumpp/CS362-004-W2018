@@ -66,6 +66,7 @@ unittestresults.out: playdom player cardTest1 cardTest2 cardTest3 cardTest4 unit
 	./unitTest3 >> unittestresults.out
 	./unitTest4 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
 
