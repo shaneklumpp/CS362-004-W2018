@@ -95,4 +95,4 @@ unittestresults.out: playdom player cardTest1 cardTest2 cardTest3 cardTest4 unit
 all: playdom player testDrawCard testBuyCard badTestDrawCard cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unitTest2.exe unitTest3.exe unitTest2 unitTest3.exe unitTest3 unitTest1.exe unitTest1 unitTest4.exe unitTest4 cardTest1.exe cardTest1 cardTest2.exe cardTest2 cardTest3.exe cardTest3 cardTest4.exe cardTest4 randomtestadventurer randomtestcard1 randomtestcard2
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so testDrawCard testDrawCard.exe unitTest2.exe unitTest3.exe unitTest2 unitTest3.exe unitTest3 unitTest1.exe unitTest1 unitTest4.exe unitTest4 cardTest1.exe cardTest1 cardTest2.exe cardTest2 cardTest3.exe cardTest3 cardTest4.exe cardTest4 randomtestadventurer randomtestcard1 randomtestcard2
