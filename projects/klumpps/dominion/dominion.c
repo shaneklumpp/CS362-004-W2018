@@ -1260,7 +1260,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 int smithyFunc(struct gameState *state, int handPos, int currentPlayer){
       int i;
       //+3 Cards (originally went from i = 0; i < 3)
-      for (i = 0; i < 4; i++)//changed to i<4 so now 4 cards will be drawn instead of 3 cards
+      for (i = 0; i < 3; i++)//changed to i<4 so now 4 cards will be drawn instead of 3 cards
 	    {
 	      drawCard(currentPlayer, state);
 	    }
@@ -1274,7 +1274,7 @@ int villageFunc(struct gameState *state, int handPos, int *bonus, int currentPla
   
       //+1 Card
       drawCard(currentPlayer, state);
-      //drawCard(currentPlayer, state); //BUG: extra drawCard, could happen if a dev uses copy paste twice on accident
+      drawCard(currentPlayer, state); //BUG: extra drawCard, could happen if a dev uses copy paste twice on accident
 			
       //+2 Actions
       state->numActions = state->numActions + 2;

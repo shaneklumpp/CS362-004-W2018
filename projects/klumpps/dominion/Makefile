@@ -22,6 +22,13 @@ runtestcard1: randomtestcard1
 	gcov dominion.c | cat >> randomtestcard1.out
 	cat dominion.c.gcov | cat >> randomtestcard1.out
 
+randomtestcard2:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c randomtestcard2.c rngs.c -o randomtestcard2 -lm -g
+    
+runtestcard2: randomtestcard2
+	./randomtestcard2 | cat &> randomtestcard2.out
+	gcov dominion.c | cat >> randomtestcard2.out
+	cat dominion.c.gcov | cat >> randomtestcard2.out
 
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
@@ -88,4 +95,4 @@ unittestresults.out: playdom player cardTest1 cardTest2 cardTest3 cardTest4 unit
 all: playdom player testDrawCard testBuyCard badTestDrawCard cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unitTest2.exe unitTest3.exe unitTest2 unitTest3.exe unitTest3 unitTest1.exe unitTest1 unitTest4.exe unitTest4 cardTest1.exe cardTest1 cardTest2.exe cardTest2 cardTest3.exe cardTest3 cardTest4.exe cardTest4 randomtestadventurer randomtestcard1
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unitTest2.exe unitTest3.exe unitTest2 unitTest3.exe unitTest3 unitTest1.exe unitTest1 unitTest4.exe unitTest4 cardTest1.exe cardTest1 cardTest2.exe cardTest2 cardTest3.exe cardTest3 cardTest4.exe cardTest4 randomtestadventurer randomtestcard1 randomtestcard2
