@@ -1274,7 +1274,7 @@ int villageFunc(struct gameState *state, int handPos, int *bonus, int currentPla
   
       //+1 Card
       drawCard(currentPlayer, state);
-      drawCard(currentPlayer, state); //BUG: extra drawCard, could happen if a dev uses copy paste twice on accident
+      //drawCard(currentPlayer, state); //BUG: extra drawCard, could happen if a dev uses copy paste twice on accident
 			
       //+2 Actions
       state->numActions = state->numActions + 2;
@@ -1347,7 +1347,7 @@ int adventurerFunc(struct gameState *state, int z, int drawntreasure, int curren
 	        }
 	      
 	      drawCard(currentPlayer, state);                            //BUG!!:changed -1 to -2 here. Should get second to top card
-	      cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-2];//top card of hand is most recently drawn card. (now second to top card)
+	      cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card. (now second to top card)
 	      
 	      if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold){
 	          drawntreasure++;
