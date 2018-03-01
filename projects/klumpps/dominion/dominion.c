@@ -1260,7 +1260,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 int smithyFunc(struct gameState *state, int handPos, int currentPlayer){
       int i;
       //+3 Cards (originally went from i = 0; i < 3)
-      for (i = 0; i < 4; i++)//changed to i<4 so now 4 cards will be drawn instead of 3 cards
+      for (i = 0; i < 3; i++)//changed to i<4 so now 4 cards will be drawn instead of 3 cards
 	    {
 	      drawCard(currentPlayer, state);
 	    }
@@ -1273,7 +1273,7 @@ int smithyFunc(struct gameState *state, int handPos, int currentPlayer){
 int villageFunc(struct gameState *state, int handPos, int *bonus, int currentPlayer){
   
       //+1 Card
-      drawCard(currentPlayer, state);
+      //drawCard(currentPlayer, state);
       drawCard(currentPlayer, state); //BUG: extra drawCard, could happen if a dev uses copy paste twice on accident
 			
       //+2 Actions
@@ -1292,13 +1292,13 @@ int minionFunc(int choice1, int choice2, struct gameState *state, int handPos, i
       discardCard(handPos, currentPlayer, state, 0);
 			
 			//BUG: Flip flopped choice1 with choice 2 here!!
-      if (choice2)		//+2 coins
+      if (choice1)		//+2 coins
 	    {
 	      state->coins = state->coins + 2;
 	    }
 			
 			//BUG: Flip flopped choice2 with choice 1 here!!!
-      else if (choice1)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+      else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
 	      {
 	        //discard hand
 	      while(numHandCards(state) > 0)
